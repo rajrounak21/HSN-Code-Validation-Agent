@@ -1,78 +1,104 @@
-# HSN-Code-Validation-Agent
+# 🔍 HSN-Code-Validation-Agent
 
-👋 Welcome to the HSN Code Validation Agent — a simple Python command-line tool to validate HSN codes and retrieve their descriptions from an Excel dataset.
-
----
-
-## Overview
-
-This agent allows users to input an HSN (Harmonized System of Nomenclature) code and checks whether the code exists in the provided dataset (`HSN_SAC.xlsx`). It returns the corresponding description for valid codes or an error message for invalid inputs.
+A Streamlit-powered web tool to validate Indian **HSN (Harmonized System of Nomenclature)** codes using a local Excel dataset and a Google ADK Agent (Gemini 2.0 Flash).
 
 ---
 
-## Features
+## 📁 Project Structure
 
-- Validates if the input HSN code is numeric.
-- Checks the existence of the HSN code in the dataset.
-- Returns the description of the valid HSN code.
-- Interactive command-line interface for continuous user inputs.
-- Exit option to quit the agent gracefully.
-
----
-
-## Prerequisites
-
-- Python 3.x
-- pandas library
+```
+HSN-Code-Validation-Agent/
+├── main.py            # Streamlit app interface
+├── hsn_agent.py       # Validation logic + Google ADK Agent
+├── __init__.py        # Package initializer
+├── .env               # Environment variables (e.g., API keys)
+├── HSN_SAC.xlsx       # HSN codes dataset (not included in repo)
+```
 
 ---
 
-## Installation
+## 🚀 Features
 
-1. Clone this repository or download the script file.
+* ✅ Validates numeric HSN codes from the official dataset
+* 🧠 Uses Google ADK agent with Gemini 2.0 Flash
+* 💾 Local Excel dataset for offline-first behavior
+* 🌐 Simple web interface via Streamlit
 
-2. Make sure you have `pandas` installed. If not, install it using pip:
-   pip install pandas
+---
 
-3.Ensure the Excel file HSN_SAC.xlsx is in the same directory as the script or provide the correct path to it.
-Usage
-Run the Python script:
+## 🔐 Environment Variables
 
-python main.py
-You will see the prompt:
+This project uses a `.env` file to store sensitive configuration values like API keys.
 
-👋 Welcome to the HSN Code Validation Agent
-Enter an HSN code (or 'exit' to quit):
-Enter any numeric HSN code to check its validity and get the description.
+Create a `.env` file in the project root with content like:
 
-Type exit to quit the agent.
+```
+GOOGLE_API_KEY=your-google-api-key-here
+```
 
-Code Explanation
-The script loads the HSN data from HSN_SAC.xlsx into a pandas DataFrame.
+> The `.env` file is **not committed to version control** for security reasons. You must manually create it.
 
-It cleans the column names and converts the HSNCode column to string for comparison.
+Make sure you load the environment variables in your Python script using:
+## 📦 Installation
 
-The validate_hsn_code function checks:
+Install required dependencies:
 
-If the code is numeric.
+```
+pip install streamlit pandas google-generativeai python-dotenv google-adk
+```
 
-If it exists in the dataset.
+---
 
-A simple interactive loop allows repeated validation until the user types exit.
+## ▶️ Running the App
 
-Example
-Enter an HSN code (or 'exit' to quit): 1001
-✅ Valid HSN Code: 1001 - Wheat and meslin
+```
+streamlit run main.py
+```
 
-Enter an HSN code (or 'exit' to quit): ABC123
-❌ Invalid HSN Code: HSN code must be numeric.
+Ensure the following before running:
 
-Enter an HSN code (or 'exit' to quit): 9999
-❌ Invalid HSN Code: HSN code not found.
+* `HSN_SAC.xlsx` is present in the root directory
+* `.env` contains a valid `GOOGLE_API_KEY`
 
-Enter an HSN code (or 'exit' to quit): exit
-👋 Goodbye!
-License
+---
+
+## 💡 Example Usage
+
+### ✅ Valid Input
+
+```
+Input: 1001
+Output: ✅ HSN Code 1001: Wheat and meslin
+```
+
+### ❌ Invalid Input
+
+```
+Input: ABC123
+Output: ❌ Invalid HSN code: must be numeric.
+```
+
+---
+
+## 🤖 Agent Description
+
+A Gemini-powered agent (`hsn_code_validator`) responds with:
+
+* ✅ HSN Code `<code>`: `<description>`
+* ❌ Invalid HSN code: `<reason>`
+
+---
+
+## 📝 License
+
+This project is intended for educational and prototype use.
+
+---
+
+## 👤 Author
+
+Created by \[Rounak raj]. Contributions and feedback welcome!
+
 This project is licensed under the MIT License.
 
 Author
